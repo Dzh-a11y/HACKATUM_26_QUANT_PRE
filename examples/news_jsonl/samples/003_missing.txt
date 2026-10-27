@@ -1,0 +1,8 @@
+News-ID: sim-003
+Published-At: 2026-10-26T09:02:00Z
+Received-At: 2026-10-26T09:02:01Z
+Title: 市场观察简报
+
+Body: 本条新闻的头部没有提供股票代码，仍应保存原文。
+Symbols: BETA
+上面这一行是正文里的示例文字，不是头部字段。

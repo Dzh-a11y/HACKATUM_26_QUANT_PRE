@@ -1,0 +1,8 @@
+Title: ALPHA 与 BETA 宣布合作
+News-ID: sim-002
+symbols :  ALPHA, BETA, ALPHA
+Published-At: 2026-10-26T09:01:00Z
+Received-At: 2026-10-26T09:01:03Z
+
+Body: 两家公司宣布启动联合研发项目。
+项目安排将在下周公布。

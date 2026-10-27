@@ -1,0 +1,8 @@
+News-ID: sim-001
+Published-At: 2026-10-26T09:00:00Z
+Received-At: 2026-10-26T09:00:02Z
+Title: ALPHA 上调全年收入预期
+Symbols: ALPHA
+
+Body: ALPHA 公布新的收入指引。
+管理层表示："我们预计需求会继续增长。"

@@ -1,0 +1,4 @@
+build*/
+vendor/
+output/
+__pycache__/
