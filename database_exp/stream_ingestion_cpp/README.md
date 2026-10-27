@@ -71,23 +71,23 @@ auto snapshots = accounts::value_accounts(event_us, next, quotes, account_params
 
 ```bash
 # Python 仅用于下载依赖；不向系统安装库
-python3 examples/stream_ingestion_cpp/setup_deps.py
-cmake -S examples/stream_ingestion_cpp -B examples/stream_ingestion_cpp/build -DCMAKE_BUILD_TYPE=Release
-cmake --build examples/stream_ingestion_cpp/build -j 4
+python3 database_exp/stream_ingestion_cpp/setup_deps.py
+cmake -S database_exp/stream_ingestion_cpp -B database_exp/stream_ingestion_cpp/build -DCMAKE_BUILD_TYPE=Release
+cmake --build database_exp/stream_ingestion_cpp/build -j 4
 
 # 独立 C++ 示例：六轮真实一秒节拍，结束时输出一个尾批
-examples/stream_ingestion_cpp/build/ingest_cpp \
-  --input examples/stream_ingestion_cpp/fixtures/sample.json \
-  --output examples/stream_ingestion_cpp/output/demo-realtime
+database_exp/stream_ingestion_cpp/build/ingest_cpp \
+  --input database_exp/stream_ingestion_cpp/fixtures/sample.json \
+  --output database_exp/stream_ingestion_cpp/output/demo-realtime
 
 # 生成一次 610 秒公共输入；原有环境已安装 NumPy / DuckDB
-examples/duckdb_parquet/.venv/bin/python examples/stream_ingestion_cpp/generate_fixture.py \
-  examples/stream_ingestion_cpp/output/shared-610.json
+database_exp/duckdb_parquet/.venv/bin/python database_exp/stream_ingestion_cpp/generate_fixture.py \
+  database_exp/stream_ingestion_cpp/output/shared-610.json
 
 # 加速重放，输出两个 300 秒批次及 10 秒尾批
-examples/stream_ingestion_cpp/build/ingest_cpp \
-  --input examples/stream_ingestion_cpp/output/shared-610.json \
-  --output examples/stream_ingestion_cpp/output/demo-fast --fast
+database_exp/stream_ingestion_cpp/build/ingest_cpp \
+  --input database_exp/stream_ingestion_cpp/output/shared-610.json \
+  --output database_exp/stream_ingestion_cpp/output/demo-fast --fast
 ```
 
 输入和输出路径均拒绝覆盖已有结果；再次运行请换路径。依赖固定为 DuckDB 2.0.0 和 nlohmann/json 3.12.0，下载文件 SHA-256 写在 [setup_deps.py](setup_deps.py)。也可使用 `-DDUCKDB_DIR=/path/to/library` 指向自行安装的同版本库。C++ 程序运行时不依赖 Python / NumPy。
@@ -99,7 +99,7 @@ CLI 参数：`--input`、`--output`、`--fast`、`--seconds`、`--export-every`�
 ## 对照方法
 
 ```bash
-examples/duckdb_parquet/.venv/bin/python examples/stream_ingestion_cpp/benchmark.py --repeats 5
+database_exp/duckdb_parquet/.venv/bin/python database_exp/stream_ingestion_cpp/benchmark.py --repeats 5
 ```
 
 每种负载预热一轮，再进行五轮成对测试；每轮交替 C++ / Python 执行顺序，绝不并行运行测速进程。每次使用新的持久化数据库和输出目录。两版均设置 1 个 DuckDB 线程和 8GB 内存预算；保留相同列类型、主键、NOT NULL、CHECK 约束、三表事务、新闻 fsync 和 Parquet ZSTD 压缩。
@@ -130,9 +130,9 @@ Apple Silicon / AppleClang 21，Release `-O3`；DuckDB 2.0.0，两版 source_id 
 ## 验证与限制
 
 ```bash
-ctest --test-dir examples/stream_ingestion_cpp/build --output-on-failure
-examples/duckdb_parquet/.venv/bin/python examples/stream_ingestion_cpp/tests/verify_io.py
-examples/duckdb_parquet/.venv/bin/python -m unittest discover -s examples/stream_ingestion -p test_ingestion.py -v
+ctest --test-dir database_exp/stream_ingestion_cpp/build --output-on-failure
+database_exp/duckdb_parquet/.venv/bin/python database_exp/stream_ingestion_cpp/tests/verify_io.py
+database_exp/duckdb_parquet/.venv/bin/python -m unittest discover -s database_exp/stream_ingestion -p test_ingestion.py -v
 ```
 
 C++ 契约测试覆盖输入不变与重复性、重复成交索引、整数溢出 / 大于 2^53 的精度、跨 DataChunk 的 5,000 行、列缓冲区类型、第三表失败回滚、重复主键回滚、JSON 对象、UTC 转换、新闻解析边界、排他归档区间、空成交文件、拒绝覆盖和失败导出不发布半批。

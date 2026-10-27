@@ -96,16 +96,16 @@ snapshots = value_accounts(event_time, state=new_state, quotes=quotes, params=ac
 
 ```bash
 # 首次使用此 NumPy 版本，更新示例环境的依赖
-examples/duckdb_parquet/.venv/bin/python -m pip install -r examples/stream_ingestion/requirements.txt
+database_exp/duckdb_parquet/.venv/bin/python -m pip install -r database_exp/stream_ingestion/requirements.txt
 
 # 真实每秒一轮、每 300 秒导出，默认十分钟后结束
-examples/duckdb_parquet/.venv/bin/python examples/stream_ingestion/main.py
+database_exp/duckdb_parquet/.venv/bin/python database_exp/stream_ingestion/main.py
 
 # 加速演示十分钟十秒；不等待，但保留完整的模拟秒序号和归档边界
-examples/duckdb_parquet/.venv/bin/python examples/stream_ingestion/main.py --seconds 610 --fast
+database_exp/duckdb_parquet/.venv/bin/python database_exp/stream_ingestion/main.py --seconds 610 --fast
 
 # 快速观察真实节拍；仅这条命令将导出周期临时改为五秒
-examples/duckdb_parquet/.venv/bin/python examples/stream_ingestion/main.py --seconds 6 --export-every 5
+database_exp/duckdb_parquet/.venv/bin/python database_exp/stream_ingestion/main.py --seconds 6 --export-every 5
 ```
 
 复制到独立项目时，在 `stream_ingestion` 目录安装环境：
@@ -204,8 +204,8 @@ output/run-…/
 写入进程停止后，使用输出的 `RUN_DIR`：
 
 ```bash
-examples/duckdb_parquet/.venv/bin/python examples/stream_ingestion/verify_run.py examples/stream_ingestion/output/run-f_ludxgn
-examples/duckdb_parquet/.venv/bin/python -m unittest discover -s examples/stream_ingestion -p test_ingestion.py -v
+database_exp/duckdb_parquet/.venv/bin/python database_exp/stream_ingestion/verify_run.py database_exp/stream_ingestion/output/run-f_ludxgn
+database_exp/duckdb_parquet/.venv/bin/python -m unittest discover -s database_exp/stream_ingestion -p test_ingestion.py -v
 ```
 
 2026-10-26，Python 3.14.7 / DuckDB 2.0.0 / NumPy 2.5.4 已验证当前 NumPy 版本：
@@ -223,7 +223,7 @@ examples/duckdb_parquet/.venv/bin/python -m unittest discover -s examples/stream
 运行 [benchmark.py](benchmark.py)：
 
 ```bash
-examples/duckdb_parquet/.venv/bin/python examples/stream_ingestion/benchmark.py --repeats 5
+database_exp/duckdb_parquet/.venv/bin/python database_exp/stream_ingestion/benchmark.py --repeats 5
 ```
 
 本机 Apple Silicon / Python 3.14.7，5 次中位数；持久化 DuckDB 单表写入，保留主键与 CHECK 约束。两条记录路径都计入字段转换和事务提交，输入完全相同，所有行逐值核对。预热一次、轮换测试顺序；完整样本及环境保存在 [benchmarks/numpy-v1.json](benchmarks/numpy-v1.json)。
