@@ -37,7 +37,7 @@ inline std::string quote(const std::string &text) {
 }
 struct Database {
     duckdb_database database{};
-    duckdb_connection connection{};
+    duckdb_connection connection{}; //sql in connection
     explicit Database(const std::string &path, const std::string &memory = "8GB", int threads = 1) {
         duckdb_config config{};
         if (duckdb_create_config(&config) == DuckDBError) throw std::runtime_error("create config failed");

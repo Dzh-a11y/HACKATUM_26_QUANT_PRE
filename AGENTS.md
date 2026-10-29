@@ -6,6 +6,7 @@
 
 - 当前是 hackaTUM Optiver / IMC 的技术栈探索与提升阶段，最终赛道和正式实现尚未确定。
 - 先读 [README.md](README.md)、[聊天记录规范与索引](CHAT_SUMMARY/CHAT_SUMMARY.md)，再读最近及与当前任务相关的记录和文件。
+- 涉及分支、提交、同步或审阅时，遵循 [Git 与 GitHub 协作规范](GIT_WORKFLOW.md)；项目通过 GitHub 管理任务与代码审阅。
 - 文件名使用英文；每日聊天文件使用 `YYYY-MM-DD.md`。文档内容以中文为主。
 - 讨论建议不等于已确认决定；历史记录中的路径、状态和规则仅反映当时情况，当前用户要求优先。
 

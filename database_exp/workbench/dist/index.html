@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Database Lab · 数据库实验台</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="#overview"><span class="brand-mark">D<span>↗</span></span><span>DATABASE<span class="brand-sub">EXPERIMENT LAB</span></span></a>
+  <div class="workspace"><span class="dot"></span> hackaTUM · Quant preparation</div>
+  <div class="nav-label">工作空间</div>
+  <nav aria-label="主导航">
+    <button data-view="overview" class="active"><span>◫</span>实验总览<span class="nav-num">01</span></button>
+    <button data-view="pipeline"><span>⇢</span>数据处理流程<span class="nav-num">02</span></button>
+    <button data-view="data"><span>≋</span>数据源与输出<span class="nav-num">03</span></button>
+    <button data-view="schema"><span>▦</span>表结构与字段<span class="nav-num">04</span></button>
+    <button data-view="evidence"><span>⌘</span>技术实现证据<span class="nav-num">05</span></button>
+    <button data-view="history"><span>◷</span>运行记录<span class="nav-num">06</span></button>
+    <button data-view="profiles"><span>⌁</span>函数热点<span class="nav-num">07</span></button>
+  </nav>
+  <div class="sidebar-bottom"><div class="chip dark">LOCAL WORKBENCH</div><p>C++20 / DuckDB / NumPy</p><span id="host-label">连接本机实验服务…</span></div>
+</aside>
+<main>
+  <header class="topbar"><div class="breadcrumb">database_exp <span>/</span> <b id="page-label">实验总览</b></div><div class="top-meta"><span class="dot"></span><span id="connection">本机连接中</span><button id="refresh" class="icon-button" aria-label="刷新">↻</button><button id="shutdown" class="button shutdown-button" title="停止当前实验和采样，并退出本地服务">关闭实验台</button></div></header>
+  <div class="page-head"><div><h1 id="page-title">实验总览</h1><p id="page-description">运行参数、阶段性能与输出校验。</p></div><div class="platform-tag"><span>⌁</span><div>macOS Native<span>PROCESS COUNTERS</span></div></div></div>
+  <section class="runbar panel" aria-label="实验设置">
+    <div class="section-top"><div><span class="step-tag">RUN CONFIG</span><b>实验参数</b></div><span class="muted small">Python 固定种子 42 · 每次独立输出 · DuckDB 内存预算 1 GB</span></div>
+    <form id="run-form">
+      <div class="config-grid">
+        <label>回放轮数<input name="ticks" type="number" min="1" max="600" value="12" required></label>
+        <label>标的数量<input name="symbols" type="number" min="1" max="2000" value="32" required></label>
+        <label>团队数量<input name="teams" type="number" min="1" max="32" value="2" required></label>
+        <label>DuckDB 线程预算<input name="threads" type="number" min="1" max="16" value="1" required></label>
+        <label>归档间隔 / 轮<input name="export_every" type="number" min="1" max="600" value="5" required></label>
+        <label>回放模式<select name="mode"><option value="fast">加速回放</option><option value="realtime">1 秒 / 轮</option></select></label>
+      </div>
+      <div class="config-bottom"><label class="checkbox"><input type="checkbox" name="compare">追加 C++ / Python 对照与逐值校验<span class="muted">串行、无详细埋点</span></label><div class="actions"><button type="button" class="button secondary" id="stop" disabled>停止</button><button type="submit" class="button primary" id="run"><span>▶</span>运行实验</button></div></div>
+    </form>
+  </section>
+  <div class="run-status"><div><span id="run-dot" class="dot neutral"></span><b id="run-status">尚未运行</b><span id="run-detail">从上方配置开始一次可复现的实验</span></div><button class="text-button" id="download" disabled>导出运行报告 ↗</button></div>
+  <div id="error" role="alert" hidden></div>
+  <div id="content"></div>
+  <footer><span>DATABASE LAB <span class="footer-sep">/</span> 本地数据库实验台</span><span>模拟数据 · 观测开销计入采样边界 · 非交易系统</span></footer>
+</main>
+<dialog id="source-dialog"><div class="dialog-head"><div><b id="source-title">源码</b><div id="source-hash" class="muted small"></div></div><button id="close-dialog" class="icon-button" aria-label="关闭源码">×</button></div><pre id="source-code"></pre></dialog>
+<script src="app.js"></script>
+<script src="profile-ui.js"></script>
+<script src="shutdown-ui.js"></script>
+</body></html>

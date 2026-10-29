@@ -7,8 +7,11 @@
 
 - [初次会议材料与讨论要求](docs/meetings/2026-10-26-kickoff.md)：2025 年赛道背景、2023–2025 年案例链接及协作议题。
 - [AGENTS.md](AGENTS.md)：项目阅读入口、每轮聊天记录和实验隔离规则。
+- [GIT_WORKFLOW.md](GIT_WORKFLOW.md)：Git 分支、提交、GitHub Issues 与 Pull Requests 协作规范。
 - [CHAT_SUMMARY.md](CHAT_SUMMARY/CHAT_SUMMARY.md)：聊天记录格式规定及每日、历史记录索引。
+- [GitHub 仓库](https://github.com/Dzh-a11y/HACKATUM_26_QUANT_PRE)：代码与项目文档、任务跟踪和修改审阅。
 - [database_exp](database_exp): 数据库实验
+- [数据库实验台](database_exp/workbench/README.md)：本机运行、阶段性能计数器、数据源、表结构与技术实现证据。
 
 ## 1. 项目背景
 
@@ -29,6 +32,7 @@ TODO：填写问题定义、预期成果、最小可行版本及范围边界。
 .
 ├── README.md
 ├── AGENTS.md
+├── GIT_WORKFLOW.md
 ├── CHAT_SUMMARY/
 │   ├── CHAT_SUMMARY.md
 │   ├── history.md
@@ -41,6 +45,7 @@ TODO：填写问题定义、预期成果、最小可行版本及范围边界。
 
 - README.md 是给人读的项目概览，当然也有人负责编写以及检查
 - AGENTS.md 是给Agents读的项目概览和规定，需要人去负责维护
+- GIT_WORKFLOW.md 维护 Git 与 GitHub 协作流程，任务和修改审阅分别在 GitHub Issues 与 Pull Requests 中管理
 - CHAT_SUMMARY/ 每天一个 Markdown 文件、每轮追加摘要；CHAT_SUMMARY.md 只保存格式规定和索引，history.md 完整保留迁移前的历史记录
 - docs 负责记录团队会议
 - database_exp 数据库实验
